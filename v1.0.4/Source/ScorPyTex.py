@@ -201,7 +201,16 @@ def hs():
 	global type_
 	type_.tag_remove('slash', '1.0', 'end')
 	n = '1.0'
-	search = r'\\.+?\n'
+	search = r'\\.+?\ '
+	while True:
+		count = tk.IntVar()
+		n = type_.search(search, n, nocase = 1, count = count, stopindex = 'end', regexp = True)
+		if not n: break
+		nn = '%s+%dc' % (n, count.get())
+		type_.tag_add('slash', n, nn)
+		n = nn
+	n = '1.0'
+	search = r'\\.+?\{'
 	while True:
 		count = tk.IntVar()
 		n = type_.search(search, n, nocase = 1, count = count, stopindex = 'end', regexp = True)
